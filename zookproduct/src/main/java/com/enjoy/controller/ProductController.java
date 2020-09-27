@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 
-@RestController("/product")
-@RequestMapping
+@RestController
+@RequestMapping("productcontroller")
 public class ProductController {
 
     @RequestMapping("/getProduct/{id}")

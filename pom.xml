@@ -12,6 +12,7 @@
         <module>zookpeer</module>
         <module>zookproduct</module>
         <module>otheruse</module>
+        <module>zookorder</module>
     </modules>
 
     <parent>
