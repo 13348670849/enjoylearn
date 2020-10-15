@@ -1,0 +1,28 @@
+#启动: nohup java  -jar  xxx.jar >  log.admin 2>&1 &
+server:
+  port: 8090
+  compression:
+    enabled: true
+  connection-timeout: 3000
+spring:
+  redis:
+      host: 127.0.0.1
+      port: 6379
+  datasource:
+      url: jdbc:mysql://192.168.99.100:3306/enjoy?useUnicode=true&characterEncoding=utf8&autoReconnect=true&allowMultiQueries=true&zeroDateTimeBehavior=convertToNull
+      username: root
+      password: root
+      driverClassName : com.mysql.jdbc.Driver
+      test-on-borrow: false
+      test-while-idle: true
+      time-between-eviction-runs-millis: 3600000
+mybatis:
+  mapperLocations: classpath:mapper/*.xml
+#logging:
+#  level:
+#    com:
+#      enjoy:
+#        dao:  debug
+
+
+

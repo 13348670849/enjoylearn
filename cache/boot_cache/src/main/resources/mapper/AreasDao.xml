@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>   
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.enjoy.dao.AreasDao">
+    <!--The user defined SQL!-->
+    <resultMap id="returnEntity" type="com.enjoy.entity.Areas">
+        <id column="T7_id" javaType="Integer" jdbcType="INTEGER" property="id"/>
+        <result column="T7_area" javaType="String" jdbcType="VARCHAR" property="area"/>
+        <result column="T7_areaid" javaType="String" jdbcType="VARCHAR" property="areaid"/>
+        <result column="T7_cityid" javaType="String" jdbcType="VARCHAR" property="cityid"/>
+    </resultMap>
+
+    <delete id="deleteById">
+        delete from g_areas
+        where id in
+        <foreach collection="array" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </delete>
+
+    <update id="updateByEntity" parameterType="com.enjoy.entity.Areas">
+        update areas set
+        <trim prefix="" prefixOverrides=",">
+        <if test="area != null">, area = #{area}</if>
+        <if test="areaid != null">, areaid = #{areaid}</if>
+        <if test="cityid != null">, cityid = #{cityid}</if>
+        </trim>
+
+        where id = #{id}
+    </update>
+
+    <insert id="insert" parameterType="com.enjoy.entity.Areas" useGeneratedKeys="true" keyProperty="id" >
+        <selectKey resultType="Integer" order="AFTER" keyProperty="id">
+            select LAST_INSERT_ID()
+        </selectKey>
+        insert into areas
+        (
+            area,areaid,cityid
+        )values(
+            #{area},#{areaid},#{cityid}
+        )
+    </insert>
+
+    <select id="list" parameterType="map" resultMap="returnEntity">
+        select T7.area T7_area,T7.areaid T7_areaid,T7.cityid T7_cityid, T7.id T7_id
+        from g_areas T7
+    </select>
+
+
+
+
+
+</mapper>

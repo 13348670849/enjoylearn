@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>   
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.enjoy.dao.ProvincesDao">
+    <!--The user defined SQL!-->
+    <resultMap id="returnEntity" type="com.enjoy.entity.Provinces">
+        <id column="id" javaType="Integer" jdbcType="INTEGER" property="id"/>
+        <result column="province" javaType="String" jdbcType="VARCHAR" property="province"/>
+        <result column="provinceid" javaType="String" jdbcType="VARCHAR" property="provinceid"/>
+    </resultMap>
+
+
+    <select id="list" parameterType="map" resultMap="returnEntity">
+        select T3.province province,T3.provinceid provinceid, T3.id id
+        from g_provinces T3
+    </select>
+
+    <select id="detail" resultMap="returnEntity">
+        select T3.province province,T3.provinceid provinceid, T3.id id
+        from g_provinces T3
+        where provinceid = #{provinceid}
+    </select>
+
+    <delete id="delete">
+        delete from g_provinces where provinceid = #{provinceid}
+    </delete>
+
+    <update id="update" parameterType="com.enjoy.entity.Provinces">
+        update g_provinces set
+        <trim prefix="" prefixOverrides=",">
+            <if test="province != null">, province = #{province}</if>
+            <if test="provinceid != null">, provinceid = #{provinceid}</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <insert id="insert" parameterType="com.enjoy.entity.Provinces" useGeneratedKeys="true" keyProperty="id" >
+        <selectKey resultType="Integer" order="AFTER" keyProperty="id">
+            select LAST_INSERT_ID()
+        </selectKey>
+        insert into g_provinces
+        (
+        province,provinceid
+        )values(
+        #{province},#{provinceid}
+        )
+    </insert>
+</mapper>
